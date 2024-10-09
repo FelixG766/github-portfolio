@@ -1,7 +1,13 @@
+import Header from "./components/Header"
+import About from "./components/AboutMe"
+import Projects from "./components/Projects"
+import Experience from "./components/Experience"
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <>
+      <Header />
+      <About />
+      <Projects />
+    </>
   )
 }
