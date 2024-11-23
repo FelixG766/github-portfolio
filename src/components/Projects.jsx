@@ -1,27 +1,7 @@
 import React, { useState } from 'react';
-import { SiIntellijidea, SiVisualstudiocode, SiMysql, SiRedis, SiGooglecloud, SiSpringboot, SiSpring, SiElasticsearch, SiRabbitmq, SiDocker, SiGit } from 'react-icons/si';
+import { projectsData } from '../data/projects';
 
-const dummyProjects = [{
-  name: "Online Mall - Large Scale Distributed Ecommerce System",
-  description: "EcomHub Refactor is a modernisation initiative for an e-commerce platform written in Java inspired by the Gulimall open-source project. The project involves refactoring and upgrading the codebase to enhance performance, scalability, and maintainability, leveraging the latest technologies and best practices in software development, with Swagger for documentation purposes.",
-  link: "https://github.com/FelixG766/OnlineMall",
-  technologies: [
-    { name: 'IntelliJ IDEA', icon: <SiIntellijidea /> },
-    { name: 'Visual Studio Code', icon: <SiVisualstudiocode /> },
-    { name: 'MySQL', icon: <SiMysql /> },
-    { name: 'Redis', icon: <SiRedis /> },
-    { name: 'Google Cloud', icon: <SiGooglecloud /> },
-    { name: 'Spring Boot', icon: <SiSpringboot /> },
-    { name: 'Spring Framework', icon: <SiSpring /> },
-    { name: 'Elasticsearch', icon: <SiElasticsearch /> },
-    { name: 'RabbitMQ', icon: <SiRabbitmq /> },
-    { name: 'Docker', icon: <SiDocker /> },
-    { name: 'Git', icon: <SiGit /> },
-  ],
-  architectureImage: "https://via.placeholder.com/600x400" // Sample image URL
-}];
-
-const Projects = ({ projects = dummyProjects }) => {
+const Projects = ({ projects = projectsData }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const openImageModal = (image) => {
@@ -39,23 +19,23 @@ const Projects = ({ projects = dummyProjects }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div key={index} className="bg-white shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow duration-300 ease-in-out">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.name}</h3>
-              <p className="text-gray-600 mb-4">{project.description}</p>
-              <div className="mt-4">
-                <img 
-                  src={project.architectureImage} 
-                  alt="Architecture Diagram" 
+              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-center">{project.name}</h3>
+              <p className="text-gray-600 mb-4 text-justify">{project.description}</p>
+              <div className="mt-4 mb-4">
+                <img
+                  src={project.projectImage}
+                  alt="Architecture Diagram"
                   className="cursor-pointer rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
-                  onClick={() => openImageModal(project.architectureImage)}
+                  onClick={() => openImageModal(project.projectImage)}
                 />
               </div>
-              <a 
-                href={project.link} 
+              <a
+                href={project.link}
                 className="text-indigo-500 hover:text-indigo-600 font-medium hover:underline transition duration-200 ease-in-out"
               >
                 View More
               </a>
-              <div className="flex flex-wrap mt-4">
+              <div className="my-8 flex flex-wrap justify-center">
                 {project.technologies.map((tech, i) => (
                   <div key={i} className="flex items-center m-1">
                     <div className="text-indigo-600">{tech.icon}</div>
@@ -69,20 +49,24 @@ const Projects = ({ projects = dummyProjects }) => {
         </div>
       </div>
 
-      {/* Modal for Image */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
-            <button 
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700" 
+          <div className="bg-white p-4 rounded-lg shadow-lg relative max-w-4xl max-h-full overflow-auto">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
               onClick={closeImageModal}
             >
               &times;
             </button>
-            <img src={selectedImage} alt="Full Architecture Diagram" className="max-w-full h-auto rounded-lg" />
+            <img
+              src={selectedImage}
+              alt="Full Architecture Diagram"
+              className="max-w-full max-h-screen object-contain rounded-lg"
+            />
           </div>
         </div>
       )}
+
     </section>
   );
 };
